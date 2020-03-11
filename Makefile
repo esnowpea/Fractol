@@ -15,7 +15,7 @@ NAME = fractol
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -O2
-LIBFT_FLAGS = -L$(LIBFT_DIR) -lft -L$(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
+LIB_FLAGS = -L$(LIBFT_DIR) -lft -L$(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEADERS) -I$(LIBMLX_HEADERS)
 
@@ -51,7 +51,7 @@ END = \033[0m
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
-	@$(CC) $(FLAGS) $(LIBFT_FLAGS) $(INCLUDES) $(OBJ) -o $@
+	@$(CC) $(FLAGS) $(LIB_FLAGS) $(INCLUDES) $(OBJ) -o $@
 	@echo "\n$(NAME): $(GRN)*.o files created$(END)"
 	@echo "$(NAME): $(GRN)$(NAME) created$(END)"
 

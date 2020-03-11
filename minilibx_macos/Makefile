@@ -2,22 +2,22 @@
 NAME = libmlx.a
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -O2
+FLAGS = -O2
 
 INCLUDES = -I$(HEADERS_DIR)
 
 SRC_DIR = src/
-SRC_LIST =	mlx_shaders.c \
-		    mlx_new_window.m \
+SRC_LIST =	mlx_new_window.m \
 	    	mlx_init_loop.m \
 	    	mlx_new_image.m \
 	    	mlx_xpm.c \
 	    	mlx_int_str_to_wordtab.c \
-	    	font.c
+	    	mlx_shaders.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 
 OBJ_DIR = obj/
-OBJ_LIST = $(patsubst %.c, %.o, $(SRC_LIST)) $(patsubst %.m, %.o, $(SRC_LIST))
+OBJ_LIST1 = $(patsubst %.c, %.o, $(SRC_LIST))
+OBJ_LIST = $(patsubst %.m, %.o, $(OBJ_LIST1))
 OBJ	= $(addprefix $(OBJ_DIR), $(OBJ_LIST))
 
 HEADERS_LIST = mlx.h
@@ -31,10 +31,6 @@ RED = \033[0;31m
 YEL = \033[1;33m
 END = \033[0m
 
-OBJ1=$(SRC:.c=.o)
-OBJ=$(OBJ1:.m=.o)
-CFLAGS+=-O2
-
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
@@ -46,7 +42,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 	@echo "$(GRN).$(END)\c"
 
+$(OBJ_DIR)%.o: $(SRC_DIR)%.m
+	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+	@echo "$(GRN).$(END)\c"
+
 $(OBJ_DIR):
+	@echo "$(OBJ)"
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(NAME): $(GRN)$(OBJ_DIR) created$(END)"
 

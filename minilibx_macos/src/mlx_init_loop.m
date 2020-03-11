@@ -8,6 +8,8 @@
 #include "mlx_int.h"
 #include "mlx_new_window.h"
 
+#include "font.c"
+
 
 void	do_loop_hook2(CFRunLoopTimerRef observer, void * info)
 {

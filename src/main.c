@@ -6,7 +6,7 @@
 /*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:32:50 by esnowpea          #+#    #+#             */
-/*   Updated: 2020/03/11 15:33:49 by esnowpea         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:33:59 by esnowpea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int main()
 {
-	printf("Hello, World!\n");
+	ft_printf("Hello, World!\n");
 	return 0;
 }

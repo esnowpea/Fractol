@@ -6,13 +6,13 @@
 /*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:32:30 by esnowpea          #+#    #+#             */
-/*   Updated: 2020/03/11 15:32:30 by esnowpea         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:33:59 by esnowpea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include <stdio.h>
+# include "libft.h"
 
 #endif

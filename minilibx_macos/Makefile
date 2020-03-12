@@ -47,7 +47,6 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.m
 	@echo "$(GRN).$(END)\c"
 
 $(OBJ_DIR):
-	@echo "$(OBJ)"
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(NAME): $(GRN)$(OBJ_DIR) created$(END)"
 

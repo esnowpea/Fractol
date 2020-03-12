@@ -3,7 +3,7 @@ project(fractol C)
 
 set(CMAKE_C_STANDARD 90)
 
-add_executable(fractol src/main.c inc/fractol.h)
+add_executable(fractol src/main.c inc/fractol.h src/print_image.c src/math_fun.c)
 target_include_directories(fractol PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_include_directories(fractol PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 

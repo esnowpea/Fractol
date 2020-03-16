@@ -6,7 +6,7 @@
 /*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:32:50 by esnowpea          #+#    #+#             */
-/*   Updated: 2020/03/12 16:13:39 by esnowpea         ###   ########.fr       */
+/*   Updated: 2020/03/16 16:40:02 by esnowpea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int main()
 	p2.xp = WIN_WIDTH / 3 * 2;
 	p2.yp = WIN_HEIGHT / 3 * 2;
 	p2.color = 0xff;
-	img_line_put(&fdf.img, p1, p2);
+	img_black(&fdf.img);
+	img_put(&fdf.img);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img.img_ptr, 0, 0);
 	mlx_loop(fdf.mlx);
 }

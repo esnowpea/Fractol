@@ -6,7 +6,7 @@
 /*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:32:30 by esnowpea          #+#    #+#             */
-/*   Updated: 2020/03/12 15:02:45 by esnowpea         ###   ########.fr       */
+/*   Updated: 2020/03/16 18:40:49 by esnowpea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 # include "mlx.h"
 # include <math.h>
 # include <fcntl.h>
+#include <pthread.h>
 
-# define WIN_HEIGHT		1000
-# define WIN_WIDTH		2000
+# define WIN_HEIGHT		1300
+# define WIN_WIDTH		2300
 
 typedef struct			s_point
 {
@@ -30,6 +31,12 @@ typedef struct			s_point
 	int					yp;
 	int					color;
 }						t_point;
+
+typedef struct			s_point_double
+{
+	double				x;
+	double				y;
+}						t_point_double;
 
 typedef struct			s_line
 {
@@ -78,6 +85,7 @@ typedef struct			s_map
 
 double					sqr(double a);
 void					img_line_put(t_img *img, t_point p1, t_point p2);
+void					img_put(t_img *img);
 void					img_pixel_put(t_img *img, t_point p1);
 void					img_black(t_img *img);
 

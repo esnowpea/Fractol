@@ -12,24 +12,33 @@
 
 #include "fractol.h"
 
+void	*free_fdf(t_map *a)
+{
+	if (a)
+	{
+		write(1, "Error.\n", 15);
+		free(a);
+	}
+	return (0);
+}
+
+void		initialization(t_map *fdf)
+{
+	fdf->mlx = mlx_init();
+	fdf->win = mlx_new_window(fdf->mlx, WIN_WIDTH, WIN_HEIGHT, "fractol");
+	fdf->img.img_ptr = mlx_new_image(fdf->mlx, WIN_WIDTH, WIN_HEIGHT);
+	fdf->img.data = mlx_get_data_addr(fdf->img.img_ptr, &fdf->img.bpp,
+									  &fdf->img.size_l, &fdf->img.endian);
+	fdf->angle = (double)(171.1) / 180 * M_PI;
+}
+
 int main()
 {
 	t_map		fdf;
-	t_point		p1, p2;
 
-	fdf.mlx = mlx_init();
-	fdf.win = mlx_new_window(fdf.mlx, WIN_WIDTH, WIN_HEIGHT, "fdf");
-	fdf.img.img_ptr = mlx_new_image(fdf.mlx, WIN_WIDTH, WIN_HEIGHT);
-	fdf.img.data = mlx_get_data_addr(fdf.img.img_ptr, &fdf.img.bpp,
-									  &fdf.img.size_l, &fdf.img.endian);
-	p1.xp = WIN_WIDTH / 3;
-	p1.yp = WIN_HEIGHT / 3;
-	p1.color = 0xff0000;
-	p2.xp = WIN_WIDTH / 3 * 2;
-	p2.yp = WIN_HEIGHT / 3 * 2;
-	p2.color = 0xff;
-	img_black(&fdf.img);
-	img_put(&fdf.img);
+	initialization(&fdf);
+	img_put(&fdf);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img.img_ptr, 0, 0);
+	event_handler((void*)&fdf);
 	mlx_loop(fdf.mlx);
 }

@@ -59,49 +59,84 @@ double	len_z(t_point_double a)
 	return (sqrt(sqr(a.x) + sqr(a.y)));
 }
 
-t_point 			ind(t_point p)
+t_point 			ind(t_point p, double angle)
 {
 	t_point_double	out;
 	t_point_double	out1;
-	double 			angle;
 	int i;
 
 	out.x = (double)(p.xp - WIN_WIDTH / 2) / 500;
 	out.y = (double)(-p.yp + WIN_HEIGHT / 2) / 500;
-	out1.x = 500;
-	out1.y = 500;
-	angle = (double)(171.1) / 180 * M_PI;
+	out1.x = out.x + 1;
+	out1.y = out.y + 1;
 	i = 0;
-	while (i < 500 && len_z(sum_z(out, out1)) >= 0.00001)
+//	while (i < 500 && len_z(sum_z(out, out1)) >= 0.00001)
+	while (i < 500 && len_z(out) < 16)
 	{
 		out1.x = -out.x;
 		out1.y = -out.y;
-		out = sum_z(sqr_z(out), fill_z(0.7885 * cos(angle), 0.7885 * sin(angle)));
+		out = sum_z(sqr_z(out), fill_z(0.7885 * cos(angle), \
+		0.7885 * sin(angle)));
+//		out = sum_z(sqr_z(out), fill_z((double)(p.xp - WIN_WIDTH / 2) / 500,
+//									   (double)(-p.yp + WIN_HEIGHT / 2) / 500));
 		i++;
 	}
 	if (len_z(out) < 2)
 		p.color = (int)(0xff / sqrt((double)i / 4 + 1)) << 16;
 	else
-		p.color = (int)(0xff / sqrt((double)i / 4 + 1)) << 8;
+		p.color = (int)(0xff / sqrt((double)i / 4 + 1)) << 0;
 	return (p);
 }
 
-void 			img_put(t_img *img)
+void 			*img_put_help(void *args)
 {
-	int			i;
-	int			j;
+	t_point		st;
+	t_point		en;
 	t_point		p;
+	int 		i;
+	t_map		*arg = (t_map*) args;
 
 	i = 0;
-	while (i < WIN_WIDTH)
-	{
-		j = 0;
-		while (j < WIN_HEIGHT)
-		{
-			p = fill_point(i, j, 0x0);
-			img_pixel_put(img, ind(p));
-			j++;
-		}
+	while (pthread_self() != arg->threads[i])
 		i++;
+	en.xp = (i % (int)sqrt(NUM_OF_THREADS) + 1) * trunc(WIN_WIDTH /
+			(int)sqrt(NUM_OF_THREADS));
+	en.yp = (i / (int)sqrt(NUM_OF_THREADS) + 1) * trunc(WIN_HEIGHT /
+			(int)sqrt(NUM_OF_THREADS));
+	pthread_mutex_lock(&(arg->mutex));
+	ft_printf("i = %d, x = %d, y = %d\n", i, en.xp, en.yp);
+	pthread_mutex_unlock(&(arg->mutex));
+	st.xp = en.xp - WIN_WIDTH / (int)sqrt(NUM_OF_THREADS);
+	while (st.xp < en.xp)
+	{
+		st.yp = en.yp - WIN_HEIGHT / (int)sqrt(NUM_OF_THREADS);
+		while (st.yp < en.yp)
+		{
+			p = ind(st, arg->angle);
+			pthread_mutex_lock(&(arg->mutex));
+			img_pixel_put(&arg->img, p);
+			pthread_mutex_unlock(&(arg->mutex));
+			st.yp++;
+		}
+		st.xp++;
 	}
+	return (0);
+}
+
+void 			img_put(t_map *fdf)
+{
+	int		i;
+
+	i = 0;
+	pthread_mutex_init(&(fdf->mutex), NULL);
+	while (i < NUM_OF_THREADS)
+		pthread_create(&fdf->threads[i++], NULL, img_put_help, fdf);
+	while (i > 0)
+	{
+		pthread_join(fdf->threads[NUM_OF_THREADS - i], NULL);
+		ft_printf("end %d thread\n", NUM_OF_THREADS - i);
+		i--;
+	}
+	pthread_mutex_destroy(&(fdf->mutex));
+	ft_printf("mutex_destroy\n");
 }

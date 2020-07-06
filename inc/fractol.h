@@ -20,10 +20,14 @@
 # include "mlx.h"
 # include <math.h>
 # include <fcntl.h>
-#include <pthread.h>
+# include <pthread.h>
 
 # define WIN_HEIGHT		1300
 # define WIN_WIDTH		2300
+# define ESC			53
+# define SCROLL_UP		4
+# define SCROLL_DOWN	5
+#define NUM_OF_THREADS	625
 
 typedef struct			s_point
 {
@@ -66,10 +70,9 @@ typedef struct			s_img
 
 typedef struct			s_map
 {
-	t_point				m;
-	t_point				x;
 	t_point				y;
 	t_point				v[3];
+	double				angle;
 	int					mouse_press;
 	int					ctrl_press;
 	int					x_mouse;
@@ -81,12 +84,16 @@ typedef struct			s_map
 	void				*mlx;
 	void				*win;
 	t_img				img;
+	pthread_mutex_t		mutex;
+	pthread_t			threads[NUM_OF_THREADS];
 }						t_map;
 
 double					sqr(double a);
 void					img_line_put(t_img *img, t_point p1, t_point p2);
-void					img_put(t_img *img);
+void					img_put(t_map *fdf);
 void					img_pixel_put(t_img *img, t_point p1);
 void					img_black(t_img *img);
+void					event_handler(void *param);
+t_point 				fill_point(int x, int y, int color);
 
 #endif

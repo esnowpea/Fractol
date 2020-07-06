@@ -14,7 +14,7 @@
 NAME = fractol
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -O2
+FLAGS = -O2 -Wall -Werror -Wextra
 LIB_FLAGS = -L$(LIBFT_DIR) -lft -L$(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEADERS) -I$(LIBMLX_HEADERS)
@@ -32,7 +32,10 @@ HEADERS_DIR = ./inc/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 SRC_DIR = src/
-SRC_LIST =	main.c
+SRC_LIST =	main.c \
+			print_image.c \
+			math_fun.c \
+			event_handler.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 
 OBJ_DIR = obj/

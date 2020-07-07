@@ -26,6 +26,18 @@ t_point_double	sqr_z(t_point_double a)
 	return (out);
 }
 
+t_point_double	pow_z(t_point_double a, double n)
+{
+	t_point_double	out;
+	double r, fi;
+
+	r = sqrt(sqr(a.x) + sqr(a.y));
+	fi = atan(a.y/ a.x);
+	out.x = pow(r, n) * cos(n * fi);
+	out.y = pow(r, n) * sin(n * fi);
+	return (out);
+}
+
 t_point_double	sum_z(t_point_double a, t_point_double b)
 {
 	t_point_double	out;
@@ -54,35 +66,67 @@ t_point_double	fill_z(double x, double y)
 	return (out);
 }
 
-double	len_z(t_point_double a)
+double	len_z2(t_point_double a)
 {
-	return (sqrt(sqr(a.x) + sqr(a.y)));
+	return (sqr(a.x) + sqr(a.y));
 }
 
-t_point 			ind(t_point p, double angle)
+t_point 			julia(t_point p, double angle)
 {
-	t_point_double	out;
-	t_point_double	out1;
+	t_point_double	out, c;
+	double			r;
 	int i;
 
-	out.x = (double)(p.xp - WIN_WIDTH / 2) / 500;
-	out.y = (double)(-p.yp + WIN_HEIGHT / 2) / 500;
-	out1.x = out.x + 1;
-	out1.y = out.y + 1;
+	out.x = (double)(p.xp - WIN_WIDTH / 2) / 300;
+	out.y = (double)(-p.yp + WIN_HEIGHT / 2) / 300;
+	c = fill_z(0.7885 * cos(angle), 0.7885 * sin(angle));
+	r = (1 + sqrt(1 + 4 * sqrt(len_z2(c)))) / 2;
 	i = 0;
-//	while (i < 500 && len_z(sum_z(out, out1)) >= 0.00001)
-	while (i < 500 && len_z(out) < 16)
+	while (i < 500 && len_z2(out) < r * r)
 	{
-		out1.x = -out.x;
-		out1.y = -out.y;
-		out = sum_z(sqr_z(out), fill_z(0.7885 * cos(angle), \
-		0.7885 * sin(angle)));
-//		out = sum_z(sqr_z(out), fill_z((double)(p.xp - WIN_WIDTH / 2) / 500,
-//									   (double)(-p.yp + WIN_HEIGHT / 2) / 500));
+		out = sum_z(pow_z(out, 2), c);
 		i++;
 	}
-	if (len_z(out) < 2)
-		p.color = (int)(0xff / sqrt((double)i / 4 + 1)) << 16;
+	if (len_z2(out) < r * r)
+	{
+		if (i != 500)
+			ft_printf("i = %d\n", i);
+		p.color = (int) (0xff / sqrt((double) i / 4 + 1)) << 16;
+	}
+	else
+		p.color = (int)(0xff / sqrt((double)i / 4 + 1)) << 0;
+	return (p);
+}
+
+t_point 			mandelbrot(t_point p, double angle)
+{
+	t_point_double	out;
+	t_point_double	tmp[500];
+	int i, j, k, flag;
+
+	out.x = (double)(p.xp - WIN_WIDTH / 2 * 1.3) / 300;
+	out.y = (double)(-p.yp + WIN_HEIGHT / 2) / 300;
+	i = 0;
+	j = 0;
+	flag = 1;
+	angle = angle + 1 - 1;
+	while (i < 500 && len_z2(out) < 4 && flag)
+	{
+		tmp[j++] = out;
+		out = sum_z(pow_z(out, 2),
+					fill_z((double) (p.xp - WIN_WIDTH / 2 * 1.3) / 300,
+						   (double) (-p.yp + WIN_HEIGHT / 2) / 300));
+		k = 0;
+		while (k < j && flag)
+		{
+			if (tmp[k].x == out.x && tmp[k].y == out.y)
+				flag = 0;
+			k++;
+		}
+		i++;
+	}
+	if (len_z2(out) < 4)
+		p.color = (int) (0xff / sqrt((double) i / 4 + 1)) << 16;
 	else
 		p.color = (int)(0xff / sqrt((double)i / 4 + 1)) << 0;
 	return (p);
@@ -103,16 +147,13 @@ void 			*img_put_help(void *args)
 			(int)sqrt(NUM_OF_THREADS));
 	en.yp = (i / (int)sqrt(NUM_OF_THREADS) + 1) * trunc(WIN_HEIGHT /
 			(int)sqrt(NUM_OF_THREADS));
-	pthread_mutex_lock(&(arg->mutex));
-	ft_printf("i = %d, x = %d, y = %d\n", i, en.xp, en.yp);
-	pthread_mutex_unlock(&(arg->mutex));
 	st.xp = en.xp - WIN_WIDTH / (int)sqrt(NUM_OF_THREADS);
 	while (st.xp < en.xp)
 	{
 		st.yp = en.yp - WIN_HEIGHT / (int)sqrt(NUM_OF_THREADS);
 		while (st.yp < en.yp)
 		{
-			p = ind(st, arg->angle);
+			p = julia(st, arg->angle);
 			pthread_mutex_lock(&(arg->mutex));
 			img_pixel_put(&arg->img, p);
 			pthread_mutex_unlock(&(arg->mutex));

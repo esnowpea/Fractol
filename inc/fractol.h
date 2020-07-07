@@ -22,12 +22,12 @@
 # include <fcntl.h>
 # include <pthread.h>
 
-# define WIN_HEIGHT		1300
-# define WIN_WIDTH		2300
+# define WIN_HEIGHT		800
+# define WIN_WIDTH		1200
 # define ESC			53
 # define SCROLL_UP		4
 # define SCROLL_DOWN	5
-#define NUM_OF_THREADS	625
+#define NUM_OF_THREADS	64
 
 typedef struct			s_point
 {

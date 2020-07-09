@@ -32,7 +32,7 @@ t_point_double	pow_z(t_point_double a, double n)
 	double r, fi;
 
 	r = sqrt(sqr(a.x) + sqr(a.y));
-	fi = atan(a.y/ a.x);
+	fi = atan(a.y / a.x);
 	out.x = pow(r, n) * cos(n * fi);
 	out.y = pow(r, n) * sin(n * fi);
 	return (out);
@@ -77,24 +77,23 @@ t_point 			julia(t_point p, double angle)
 	double			r;
 	int i;
 
-	out.x = (double)(p.xp - WIN_WIDTH / 2) / 300;
-	out.y = (double)(-p.yp + WIN_HEIGHT / 2) / 300;
+	out.x = (double)(p.xp - WIN_WIDTH / 2) / 500;
+	out.y = (double)(-p.yp + WIN_HEIGHT / 2) / 500;
 	c = fill_z(0.7885 * cos(angle), 0.7885 * sin(angle));
-	r = (1 + sqrt(1 + 4 * sqrt(len_z2(c)))) / 2;
+	r = 10000; //(1 + sqrt(1 + 4 * sqrt(len_z2(c)))) / 2;
 	i = 0;
-	while (i < 500 && len_z2(out) < r * r)
+	while (i < 2500 && len_z2(out) < r * r)
 	{
 		out = sum_z(pow_z(out, 2), c);
 		i++;
 	}
-	if (len_z2(out) < r * r)
-	{
-		if (i != 500)
-			ft_printf("i = %d\n", i);
-		p.color = (int) (0xff / sqrt((double) i / 4 + 1)) << 16;
-	}
-	else
-		p.color = (int)(0xff / sqrt((double)i / 4 + 1)) << 0;
+//	if (len_z2(out) < r * r)
+//	{
+//		p.color = (int) (0xff / sqrt((double) i / 4 + 1)) << 16;
+//	}
+//	else
+		p.color = ((int)(0xff / sqrt((double)i / 4 + 1)) << 8) +
+				((int)(0xff / sqrt((double)i / 4 + 1)) << 0);
 	return (p);
 }
 
@@ -104,18 +103,16 @@ t_point 			mandelbrot(t_point p, double angle)
 	t_point_double	tmp[500];
 	int i, j, k, flag;
 
-	out.x = (double)(p.xp - WIN_WIDTH / 2 * 1.3) / 300;
-	out.y = (double)(-p.yp + WIN_HEIGHT / 2) / 300;
+	out.x = (double)(p.xp - WIN_WIDTH / 2 * 1.3) / 500;
+	out.y = (double)(-p.yp + WIN_HEIGHT / 2) / 500;
 	i = 0;
 	j = 0;
 	flag = 1;
 	angle = angle + 1 - 1;
-	while (i < 500 && len_z2(out) < 4 && flag)
+	while (i < 500 && len_z2(out) < 1000 && flag)
 	{
 		tmp[j++] = out;
-		out = sum_z(pow_z(out, 2),
-					fill_z((double) (p.xp - WIN_WIDTH / 2 * 1.3) / 300,
-						   (double) (-p.yp + WIN_HEIGHT / 2) / 300));
+		out = sum_z(pow_z(out, 2), tmp[0]);
 		k = 0;
 		while (k < j && flag)
 		{
@@ -125,7 +122,7 @@ t_point 			mandelbrot(t_point p, double angle)
 		}
 		i++;
 	}
-	if (len_z2(out) < 4)
+	if (len_z2(out) < 1000)
 		p.color = (int) (0xff / sqrt((double) i / 4 + 1)) << 16;
 	else
 		p.color = (int)(0xff / sqrt((double)i / 4 + 1)) << 0;
@@ -153,7 +150,7 @@ void 			*img_put_help(void *args)
 		st.yp = en.yp - WIN_HEIGHT / (int)sqrt(NUM_OF_THREADS);
 		while (st.yp < en.yp)
 		{
-			p = julia(st, arg->angle);
+			p = mandelbrot(st, arg->angle);
 			pthread_mutex_lock(&(arg->mutex));
 			img_pixel_put(&arg->img, p);
 			pthread_mutex_unlock(&(arg->mutex));

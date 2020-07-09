@@ -22,8 +22,8 @@
 # include <fcntl.h>
 # include <pthread.h>
 
-# define WIN_HEIGHT		800
-# define WIN_WIDTH		1200
+# define WIN_HEIGHT		1200
+# define WIN_WIDTH		2300
 # define ESC			53
 # define SCROLL_UP		4
 # define SCROLL_DOWN	5

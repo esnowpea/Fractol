@@ -14,50 +14,26 @@
 # define FRACTOL_H
 
 # include "libft.h"
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <limits.h>
-# include "mlx.h"
 # include <math.h>
-# include <fcntl.h>
-# include <pthread.h>
+# include <mlx.h>
+# include <stdint.h>
 
 # define WIN_HEIGHT		1200
 # define WIN_WIDTH		2300
-# define ESC			53
-# define SCROLL_UP		4
-# define SCROLL_DOWN	5
-#define NUM_OF_THREADS	64
+# define THREADS		100
 
 typedef struct			s_point
 {
-	int					xp;
-	int					yp;
+	int					x;
+	int					y;
 	int					color;
 }						t_point;
 
-typedef struct			s_point_double
+typedef struct			s_complex
 {
-	double				x;
-	double				y;
-}						t_point_double;
-
-typedef struct			s_line
-{
-	int					dx;
-	int					dy;
-	double				ds;
-	int					sign_x;
-	int					sign_y;
-	int					error;
-	int					derror;
-	double				color_r;
-	double				color_g;
-	double				color_b;
-	double				step_r;
-	double				step_g;
-	double				step_b;
-}						t_line;
+	double				re;
+	double				im;
+}						t_complex;
 
 typedef struct			s_img
 {
@@ -68,32 +44,38 @@ typedef struct			s_img
 	int					endian;
 }						t_img;
 
-typedef struct			s_map
+typedef struct			s_fractol
 {
-	t_point				y;
-	t_point				v[3];
-	double				angle;
+	void				*mlx;
+	void				*win;
+	t_img				*img;
 	int					mouse_press;
 	int					ctrl_press;
 	int					x_mouse;
-	int					y_mouse;
-	int					shift_x;
-	int					shift_y;
-	int					width;
-	int					height;
-	void				*mlx;
-	void				*win;
-	t_img				img;
-	pthread_mutex_t		mutex;
-	pthread_t			threads[NUM_OF_THREADS];
-}						t_map;
+	int 				y_mouse;
+	int					max_itr;
+	t_complex			min;
+	t_complex			max;
+	t_complex			factor;
+	t_complex			julia;
+	int					start_line;
+	int					finish_line;
+	int					(*formula)(struct s_fractol *fractol, t_complex c);
+}						t_fractol;
 
-double					sqr(double a);
-void					img_line_put(t_img *img, t_point p1, t_point p2);
-void					img_put(t_map *fdf);
-void					img_pixel_put(t_img *img, t_point p1);
-void					img_black(t_img *img);
-void					event_handler(void *param);
-t_point 				fill_point(int x, int y, int color);
+typedef struct			s_formula
+{
+	char				*name;
+	int					(*formula)(t_fractol *fractol, t_complex c);
+}						t_formula;
+
+void					terminate(char *s);
+t_fractol				*init_fractol(char *name, void *mlx);
+t_complex				init_complex(double re, double im);
+void					draw_fractal(t_fractol *fractol);
+void					event_handler(t_fractol *fractol);
+int						mandelbrot(t_fractol *fractol, t_complex c);
+int						julia(t_fractol *fractol, t_complex c);
+void					set_defaults(t_fractol *fractol);
 
 #endif

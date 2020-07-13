@@ -11,34 +11,21 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "error_message.h"
 
-void	*free_fdf(t_map *a)
+void	terminate(char *s)
 {
-	if (a)
-	{
-		write(1, "Error.\n", 15);
-		free(a);
-	}
-	return (0);
+	ft_putendl_fd(s, 2);
+	exit(0);
 }
 
-void		initialization(t_map *fdf)
+int main(int ac, char **av)
 {
-	fdf->mlx = mlx_init();
-	fdf->win = mlx_new_window(fdf->mlx, WIN_WIDTH, WIN_HEIGHT, "fractol");
-	fdf->img.img_ptr = mlx_new_image(fdf->mlx, WIN_WIDTH, WIN_HEIGHT);
-	fdf->img.data = mlx_get_data_addr(fdf->img.img_ptr, &fdf->img.bpp,
-									  &fdf->img.size_l, &fdf->img.endian);
-	fdf->angle = (double)(171.1) / 180 * M_PI;
-}
+	t_fractol	*fractol;
+	void		*mlx;
 
-int main()
-{
-	t_map		fdf;
-
-	initialization(&fdf);
-	img_put(&fdf);
-	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img.img_ptr, 0, 0);
-	event_handler((void*)&fdf);
-	mlx_loop(fdf.mlx);
+	mlx = mlx_init();
+	fractol = init_fractol(av[ac - 1] ,mlx);
+	draw_fractal(fractol);
+	mlx_loop(fractol->mlx);
 }

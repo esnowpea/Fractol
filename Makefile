@@ -33,9 +33,11 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 SRC_DIR = src/
 SRC_LIST =	main.c \
-			print_image.c \
-			math_fun.c \
-			event_handler.c
+			init.c \
+			draw_win.c \
+			event_handler.c \
+			iteration.c
+
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 
 OBJ_DIR = obj/

@@ -1,7 +1,6 @@
 
-
 #ifndef KEY_DEFINE_H
-#define KEY_DEFINE_H
+# define KEY_DEFINE_H
 
 # define MOUSE_SCROLL_UP	4
 # define MOUSE_SCROLL_DOWN	5

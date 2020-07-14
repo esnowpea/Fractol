@@ -18,7 +18,7 @@ void		img_pixel_put(t_img *img, t_point p)
 
 int			get_color(int iteration, t_fractol *fractol)
 {
-	int	color;
+	int		color;
 	double	t;
 
 	t = (double)iteration / fractol->max_itr;
@@ -49,6 +49,25 @@ static void	draw_fractal_part(t_fractol *fractol)
 	}
 }
 
+void		draw_to_win(t_fractol *fractol)
+{
+	mlx_put_image_to_window(fractol->mlx, fractol->win,
+							fractol->img->img_ptr, 0, 0);
+	mlx_string_put(fractol->mlx, fractol->win, 0, 0, 0xFFFFFF,
+			"Controls");
+	mlx_string_put(fractol->mlx, fractol->win, 0, 30, 0xFFFFFF,
+			"Reset          - R");
+	mlx_string_put(fractol->mlx, fractol->win, 0, 60, 0xFFFFFF,
+			"Move           - Mouse");
+	mlx_string_put(fractol->mlx, fractol->win, 0, 90, 0xFFFFFF,
+			"Zoom           - Scroll");
+	mlx_string_put(fractol->mlx, fractol->win, 0, 120, 0xFFFFFF,
+			"Iterations     - +/-");
+	if (fractol->is_julia)
+		mlx_string_put(fractol->mlx, fractol->win, 0, 150, 0xFFFFFF,
+				"Julia Change   - Space");
+}
+
 void		draw_fractal(t_fractol *fractol)
 {
 	pthread_t	threads[THREADS];
@@ -65,15 +84,12 @@ void		draw_fractal(t_fractol *fractol)
 		fractols[i].start_line = i * (WIN_HEIGHT / THREADS);
 		fractols[i].finish_line = (i + 1) * (WIN_HEIGHT / THREADS);
 		if (pthread_create(&threads[i], NULL,
-						   (void *(*)(void *))draw_fractal_part, (void *)&fractols[i]))
+				(void *(*)(void *))draw_fractal_part, (void *)&fractols[i]))
 			terminate(ERR_TREADS);
 		i++;
 	}
 	while (i-- > 0)
 		if (pthread_join(threads[i], NULL))
 			terminate(ERR_TREADS);
-	mlx_put_image_to_window(fractol->mlx, fractol->win,
-							fractol->img->img_ptr, 0, 0);
-//	mlx_string_put(fractol->mlx, fractol->window, 900, 965, COLOR_TUNDORA,
-//				   "H - Help");
+	draw_to_win(fractol);
 }

@@ -19,13 +19,29 @@ void	terminate(char *s)
 	exit(0);
 }
 
-int main(int ac, char **av)
+void	help(void)
+{
+	ft_putendl("Usage: ./fractol <name>");
+	ft_putendl("List of available fractals:");
+	ft_putendl(" * Mandelbrot");
+	ft_putendl(" * Julia");
+	ft_putendl(" * Mandelbrot_z^3");
+	ft_putendl(" * Mandelbrot_z^4");
+	ft_putendl(" * Julia_z^3");
+	ft_putendl(" * Julia_z^4");
+}
+
+int		main(int ac, char **av)
 {
 	t_fractol	*fractol;
-	void		*mlx;
 
-	mlx = mlx_init();
-	fractol = init_fractol(av[ac - 1] ,mlx);
+	if (ac != 2)
+	{
+		help();
+		exit(0);
+	}
+	fractol = init_fractol(av[ac - 1]);
 	draw_fractal(fractol);
 	mlx_loop(fractol->mlx);
+	return (0);
 }

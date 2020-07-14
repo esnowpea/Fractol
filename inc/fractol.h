@@ -31,8 +31,8 @@ typedef struct			s_point
 
 typedef struct			s_complex
 {
-	double				re;
-	double				im;
+	double			re;
+	double			im;
 }						t_complex;
 
 typedef struct			s_img
@@ -50,9 +50,10 @@ typedef struct			s_fractol
 	void				*win;
 	t_img				*img;
 	int					mouse_press;
-	int					ctrl_press;
+	int					space_press;
+	int					is_julia;
 	int					x_mouse;
-	int 				y_mouse;
+	int					y_mouse;
 	int					max_itr;
 	t_complex			min;
 	t_complex			max;
@@ -70,12 +71,16 @@ typedef struct			s_formula
 }						t_formula;
 
 void					terminate(char *s);
-t_fractol				*init_fractol(char *name, void *mlx);
+t_fractol				*init_fractol(char *name);
 t_complex				init_complex(double re, double im);
 void					draw_fractal(t_fractol *fractol);
 void					event_handler(t_fractol *fractol);
 int						mandelbrot(t_fractol *fractol, t_complex c);
+int						mandelbrot2(t_fractol *fractol, t_complex c);
+int						mandelbrot3(t_fractol *fractol, t_complex c);
 int						julia(t_fractol *fractol, t_complex c);
+int						julia2(t_fractol *fractol, t_complex c);
+int						julia3(t_fractol *fractol, t_complex c);
 void					set_defaults(t_fractol *fractol);
 
 #endif

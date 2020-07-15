@@ -31,8 +31,8 @@ typedef struct			s_point
 
 typedef struct			s_complex
 {
-	double			re;
-	double			im;
+	double				re;
+	double				im;
 }						t_complex;
 
 typedef struct			s_img
@@ -82,5 +82,10 @@ int						julia(t_fractol *fractol, t_complex c);
 int						julia2(t_fractol *fractol, t_complex c);
 int						julia3(t_fractol *fractol, t_complex c);
 void					set_defaults(t_fractol *fractol);
+int						mouse_release(int button, int x, int y,
+						t_fractol *fractol);
+int						mouse_move(int x, int y, t_fractol *fractol);
+int						mouse_press(int button, int x, int y,
+						t_fractol *fractol);
 
 #endif

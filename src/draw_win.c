@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_win.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/15 14:30:16 by esnowpea          #+#    #+#             */
+/*   Updated: 2020/07/15 14:30:16 by esnowpea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fractol.h"
 #include "error_message.h"
@@ -52,16 +63,16 @@ static void	draw_fractal_part(t_fractol *fractol)
 void		draw_to_win(t_fractol *fractol)
 {
 	mlx_put_image_to_window(fractol->mlx, fractol->win,
-							fractol->img->img_ptr, 0, 0);
-	mlx_string_put(fractol->mlx, fractol->win, 0, 0, 0xFFFFFF,
+							fractol->img->img_ptr, 5, 0);
+	mlx_string_put(fractol->mlx, fractol->win, 5, 0, 0xFFFFFF,
 			"Controls");
-	mlx_string_put(fractol->mlx, fractol->win, 0, 30, 0xFFFFFF,
+	mlx_string_put(fractol->mlx, fractol->win, 5, 30, 0xFFFFFF,
 			"Reset          - R");
-	mlx_string_put(fractol->mlx, fractol->win, 0, 60, 0xFFFFFF,
+	mlx_string_put(fractol->mlx, fractol->win, 5, 60, 0xFFFFFF,
 			"Move           - Mouse");
-	mlx_string_put(fractol->mlx, fractol->win, 0, 90, 0xFFFFFF,
+	mlx_string_put(fractol->mlx, fractol->win, 5, 90, 0xFFFFFF,
 			"Zoom           - Scroll");
-	mlx_string_put(fractol->mlx, fractol->win, 0, 120, 0xFFFFFF,
+	mlx_string_put(fractol->mlx, fractol->win, 5, 120, 0xFFFFFF,
 			"Iterations     - +/-");
 	if (fractol->is_julia)
 		mlx_string_put(fractol->mlx, fractol->win, 0, 150, 0xFFFFFF,

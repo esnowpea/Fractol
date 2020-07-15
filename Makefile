@@ -10,7 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME = fractol
 
 CC = gcc
@@ -36,7 +35,8 @@ SRC_LIST =	main.c \
 			init.c \
 			draw_win.c \
 			event_handler.c \
-			iteration.c
+			iteration.c \
+			mouse_hook.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
 

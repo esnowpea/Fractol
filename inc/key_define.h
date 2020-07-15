@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_define.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/15 14:32:04 by esnowpea          #+#    #+#             */
+/*   Updated: 2020/07/15 14:32:04 by esnowpea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef KEY_DEFINE_H
 # define KEY_DEFINE_H
@@ -5,11 +16,6 @@
 # define MOUSE_SCROLL_UP	4
 # define MOUSE_SCROLL_DOWN	5
 # define MOUSE_LEFT			1
-
-# define ARROW_UP			126
-# define ARROW_DOWN			125
-# define ARROW_LEFT			123
-# define ARROW_RIGHT		124
 
 # define NUM_PAD_PLUS		69
 # define NUM_PAD_MINUS		78

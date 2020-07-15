@@ -45,6 +45,7 @@ void				set_defaults(t_fractol *fractol)
 	fractol->max = init_complex(2.0 * WIN_WIDTH / WIN_HEIGHT, 2.0);
 	fractol->mouse_press = 0;
 	fractol->space_press = 0;
+	fractol->change_color = 0;
 	fractol->julia = init_complex(-0.77, 0.122);
 }
 

@@ -6,7 +6,7 @@
 /*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 14:30:16 by esnowpea          #+#    #+#             */
-/*   Updated: 2020/07/15 15:01:34 by esnowpea         ###   ########.fr       */
+/*   Updated: 2020/07/15 18:57:09 by esnowpea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,16 @@ void		img_pixel_put(t_img *img, t_point p)
 int			get_color(int iteration, t_fractol *fractol)
 {
 	int		color;
+	int		arr[3];
 	double	t;
 
 	t = (double)iteration / fractol->max_itr;
-	color = ((int8_t)(9 * (1 - t) * pow(t, 3) * 255) << 16) + \
-			((int8_t)(15 * pow((1 - t), 2) * pow(t, 2) * 255) << 8) + \
-			(int8_t)(8.5 * pow((1 - t), 3) * t * 255);
+	arr[0] = (int8_t)(9 * (1 - t) * pow(t, 3) * 255);
+	arr[1] = (int8_t)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
+	arr[2] = (int8_t)(8.5 * pow((1 - t), 3) * t * 255);
+	color = (arr[(0 + fractol->change_color) % 3] << 16) +
+			(arr[(1 + fractol->change_color) % 3] << 8) +
+			(arr[(2 + fractol->change_color) % 3] << 0);
 	return (color);
 }
 
@@ -69,13 +73,15 @@ void		draw_to_win(t_fractol *fractol)
 	mlx_string_put(fractol->mlx, fractol->win, 5, 30, 0xFFFFFF,
 			"Reset          - R");
 	mlx_string_put(fractol->mlx, fractol->win, 5, 60, 0xFFFFFF,
-			"Move           - Mouse");
+			"Change Color   - C");
 	mlx_string_put(fractol->mlx, fractol->win, 5, 90, 0xFFFFFF,
-			"Zoom           - Scroll");
+			"Move           - Mouse");
 	mlx_string_put(fractol->mlx, fractol->win, 5, 120, 0xFFFFFF,
+			"Zoom           - Scroll");
+	mlx_string_put(fractol->mlx, fractol->win, 5, 150, 0xFFFFFF,
 			"Iterations     - +/-");
 	if (fractol->is_julia)
-		mlx_string_put(fractol->mlx, fractol->win, 0, 150, 0xFFFFFF,
+		mlx_string_put(fractol->mlx, fractol->win, 0, 180, 0xFFFFFF,
 				"Julia Change   - Space + Mouse");
 }
 

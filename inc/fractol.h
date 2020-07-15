@@ -55,6 +55,7 @@ typedef struct			s_fractol
 	int					x_mouse;
 	int					y_mouse;
 	int					max_itr;
+	int					change_color;
 	t_complex			min;
 	t_complex			max;
 	t_complex			factor;

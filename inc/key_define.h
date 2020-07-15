@@ -23,7 +23,6 @@
 # define MAIN_PAD_ESC		53
 # define MAIN_PAD_SPACE		49
 # define MAIN_PAD_C			8
-# define MAIN_PAD_H			4
 # define MAIN_PAD_R			15
 # define MAIN_PAD_PLUS		24
 # define MAIN_PAD_MINUS		27

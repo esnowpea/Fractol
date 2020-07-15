@@ -6,7 +6,7 @@
 /*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 14:30:52 by esnowpea          #+#    #+#             */
-/*   Updated: 2020/07/15 15:04:41 by esnowpea         ###   ########.fr       */
+/*   Updated: 2020/07/15 18:59:02 by esnowpea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int			key_press(int key, t_fractol *fractol)
 	if (key == MAIN_PAD_R)
 	{
 		set_defaults(fractol);
+		draw_fractal(fractol);
+	}
+	if (key == MAIN_PAD_C)
+	{
+		fractol->change_color = (fractol->change_color + 1) % 3;
 		draw_fractal(fractol);
 	}
 	else if (key == MAIN_PAD_MINUS || key == NUM_PAD_MINUS ||

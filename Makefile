@@ -6,7 +6,7 @@
 #    By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/02 13:56:52 by esnowpea          #+#    #+#              #
-#    Updated: 2020/03/12 12:21:27 by esnowpea         ###   ########.fr        #
+#    Updated: 2020/07/15 14:32:19 by esnowpea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC_LIST =	main.c \
 			init.c \
 			draw_win.c \
 			event_handler.c \
-			iteration.c \
+			mandelbrot.c \
+			julia.c \
 			mouse_hook.c
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))

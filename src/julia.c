@@ -20,7 +20,7 @@ int		julia(t_fractol *fractol, t_complex c)
 	i = 0;
 	z = c;
 	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
-		   && i < fractol->max_itr)
+	&& i < fractol->max_itr)
 	{
 		z = init_complex(
 				pow(z.re, 2.0) - pow(z.im, 2.0) + fractol->julia.re,
@@ -38,7 +38,7 @@ int		julia2(t_fractol *fractol, t_complex c)
 	i = 0;
 	z = c;
 	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
-		   && i < fractol->max_itr)
+	&& i < fractol->max_itr)
 	{
 		z = init_complex(
 				z.re * (pow(z.re, 2.0) - 3 * pow(z.im, 2.0)) +
@@ -58,7 +58,7 @@ int		julia3(t_fractol *fractol, t_complex c)
 	i = 0;
 	z = c;
 	while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4
-		   && i < fractol->max_itr)
+	&& i < fractol->max_itr)
 	{
 		z = init_complex(
 				pow((z.re - z.im) * (z.re + z.im), 2.0) -

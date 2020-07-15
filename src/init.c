@@ -6,7 +6,7 @@
 /*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 14:31:24 by esnowpea          #+#    #+#             */
-/*   Updated: 2020/07/15 14:31:24 by esnowpea         ###   ########.fr       */
+/*   Updated: 2020/07/15 14:32:19 by esnowpea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ static int			(*get_formula(char *name)) (t_fractol *fractol, t_complex c)
 	int					(*formula)(t_fractol *, t_complex);
 	static t_formula	formulas[] = {
 			{ "Mandelbrot", &mandelbrot },
-			{ "Mandelbrot_z^3", &mandelbrot2 },
-			{ "Mandelbrot_z^4", &mandelbrot3 },
+			{ "Mandelbrot_V2", &mandelbrot2 },
+			{ "Mandelbrot_V3", &mandelbrot3 },
 			{ "Julia", &julia },
-			{ "Julia_z^3", &julia2 },
-			{ "Julia_z^4", &julia3 }
+			{ "Julia_V2", &julia2 },
+			{ "Julia_V3", &julia3 }
 	};
 
 	i = 0;
@@ -85,8 +85,8 @@ t_fractol			*init_fractol(char *name)
 		terminate(ERR_WINDOW_INIT);
 	fractol->img = init_image(fractol->mlx);
 	set_defaults(fractol);
-	if (ft_strequ(name, "Julia") || ft_strequ(name, "Julia_z^3") ||
-			ft_strequ(name, "Julia_z^4"))
+	if (ft_strequ(name, "Julia") || ft_strequ(name, "Julia_V2") ||
+			ft_strequ(name, "Julia_V3"))
 		fractol->is_julia = 1;
 	else
 		fractol->is_julia = 0;

@@ -6,7 +6,7 @@
 /*   By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 14:30:16 by esnowpea          #+#    #+#             */
-/*   Updated: 2020/07/15 14:30:16 by esnowpea         ###   ########.fr       */
+/*   Updated: 2020/07/15 15:01:34 by esnowpea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		draw_to_win(t_fractol *fractol)
 			"Iterations     - +/-");
 	if (fractol->is_julia)
 		mlx_string_put(fractol->mlx, fractol->win, 0, 150, 0xFFFFFF,
-				"Julia Change   - Space");
+				"Julia Change   - Space + Mouse");
 }
 
 void		draw_fractal(t_fractol *fractol)

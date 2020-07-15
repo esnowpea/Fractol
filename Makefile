@@ -6,7 +6,7 @@
 #    By: esnowpea <esnowpea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/02 13:56:52 by esnowpea          #+#    #+#              #
-#    Updated: 2020/07/15 14:32:19 by esnowpea         ###   ########.fr        #
+#    Updated: 2020/07/15 14:50:07 by esnowpea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ END = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(LIBMLX) $(OBJ_DIR) $(OBJ)
+$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
 	@$(CC) $(FLAGS) $(LIB_FLAGS) $(INCLUDES) $(OBJ) -o $@
 	@echo "\n$(NAME): $(GRN)*.o files created$(END)"
 	@echo "$(NAME): $(GRN)$(NAME) created$(END)"
@@ -73,22 +73,14 @@ $(LIBFT):
 	@echo "$(NAME): $(GRN)Creating $(LIBFT)...$(END)"
 	@$(MAKE) -C $(LIBFT_DIR)
 
-$(LIBMLX):
-	@echo "$(NAME): $(GRN)Creating $(LIBMLX)...$(END)"
-	@$(MAKE) -C $(LIBMLX_DIR)
-
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@$(MAKE) -C $(LIBMLX_DIR) clean
 	@rm -rf $(OBJ_DIR)
-	@echo "$(NAME): $(RED)$(OBJ_DIR) deleted$(END)"
 	@echo "$(NAME): $(RED)*.o files deleted$(END)"
+	@echo "$(NAME): $(RED)$(OBJ_DIR) deleted$(END)"
 
 fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@echo "$(NAME): $(RED)$(LIBFT) deleted$(END)"
-	@$(MAKE) -C $(LIBMLX_DIR) fclean
-	@echo "$(NAME): $(RED)$(LIBMLX) deleted$(END)"
 	@rm -f $(NAME)
 	@echo "$(NAME): $(RED)$(NAME) deleted$(END)"
 

@@ -25,10 +25,10 @@ void	help(void)
 	ft_putendl("List of available fractals:");
 	ft_putendl(" * Mandelbrot");
 	ft_putendl(" * Julia");
-	ft_putendl(" * Mandelbrot_z^3");
-	ft_putendl(" * Mandelbrot_z^4");
-	ft_putendl(" * Julia_z^3");
-	ft_putendl(" * Julia_z^4");
+	ft_putendl(" * Mandelbrot_V2");
+	ft_putendl(" * Mandelbrot_V3");
+	ft_putendl(" * Julia_V2");
+	ft_putendl(" * Julia_V3");
 }
 
 int		main(int ac, char **av)

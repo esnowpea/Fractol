@@ -7,13 +7,14 @@ add_executable(fractol src/main.c inc/fractol.h src/event_handler.c inc/error_me
 target_include_directories(fractol PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_include_directories(fractol PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_include_directories(fractol PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libft/inc)
+target_include_directories(fractol PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Libft/inc)
 #find_library(FT ft)
-set(FT ${CMAKE_CURRENT_SOURCE_DIR}/libft/libft.a)
+set(FT ${CMAKE_CURRENT_SOURCE_DIR}/Libft/libft.a)
 target_link_libraries(fractol ${FT})
 
 target_include_directories(fractol PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/minilibx_macos/inc)
-find_library(MLX mlx)
+#find_library(MLX mlx)
+set(MLX ${CMAKE_CURRENT_SOURCE_DIR}/minilibx_macos/libmlx.a)
 target_link_libraries(fractol ${MLX})
 
 target_link_libraries(fractol "-framework OpenGL")
